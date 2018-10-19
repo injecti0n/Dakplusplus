@@ -2,6 +2,7 @@ package dakplusbackend.model;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Random;
 
 /**
  * Employee class properties:
@@ -18,6 +19,8 @@ public class Employee {
     private Contract contract;
 
     public Long getId() {
+    	Random random = new Random();
+    	setId(1990000000000L + random.nextInt(1000000000));
         return id;
     }
 
