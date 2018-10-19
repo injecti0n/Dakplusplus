@@ -2,6 +2,7 @@ package dakplusbackend.service.stubs;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
+
 
 import dakplusbackend.model.Contract;
 import dakplusbackend.model.Employee;
@@ -70,7 +72,7 @@ public class DataProcess implements EmployeeService {
 	@Override
 	public List<Employee> getAllEmployeeWithActiveContract() throws SQLException {
 		String sql = String.format(
-				"SELECT * FROM employees WHERE ContractType = 'FULLTIME' OR ContractType = 'FIXEDTIME' OR ContractType = 'PARTTIME'");
+				"SELECT * FROM employees e1 INNER JOIN contract c1 ON e1.idcontract = c1.idcontract");
 		// SELECT * FROM employees WHERE ContractType IS NOT NULL;
 		Employee e = new Employee();
 		ResultSet rs = SendSQLServer(sql);
@@ -104,8 +106,7 @@ public class DataProcess implements EmployeeService {
 		String sql = "";
 		Random random = new Random();
 		employee.setId(1990000000000L + random.nextInt(1000000000));
-		System.out.println(1990000000000L + random.nextInt(1000000000));
-		
+
 		if (employee.getId() == null) {
 
 			sql = String.format(
@@ -120,20 +121,22 @@ public class DataProcess implements EmployeeService {
 			sql = String.format(
 					"INSERT INTO employees (idemployees,firstName,lastName,birthDay) VALUES ('%d','%s','%s','%s')",
 					employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getBirthDay());
-			employee = getEmployee(employee.getId());
+			
 		}
 		
 		System.out.println(sql);
 		boolean rs = SendInsertQuery(sql);
-		System.out.println("saved employee" + employee);
+		employees.add(employee);
 
+		System.out.println("Received emp: " + employee);
 		return employee;
 }
 
 
 	@Override
 	public void deleteEmployee(Employee employee) throws SQLException {
-		// TODO Auto-generated method stub
+		Long DelID = employee.getId();
+		SendDeleteQuery(DelID);
 
 	}
 
@@ -161,10 +164,16 @@ public class DataProcess implements EmployeeService {
 		return statement.execute(sql);
 	}
 
-	private ResultSet SendDeleteQuery(String sql) throws SQLException {
+	private int SendDeleteQuery(Long id) throws SQLException {
+		String sql = "DELETE FROM employees WHERE idemployees = ?";
 		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakDB", "root", "ekmek");
 		Statement statement = connection.createStatement();
-		return statement.executeQuery(sql);
+		
+		PreparedStatement psmt = connection.prepareStatement(sql);
+			psmt.setLong(1, id);
+			
+		
+		return psmt.executeUpdate();
 	}
 
 	public LocalDate setAsText(String text) throws IllegalArgumentException {
