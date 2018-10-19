@@ -5,68 +5,63 @@ import java.time.LocalDate;
 import java.util.Random;
 
 /**
- * Employee class properties:
- * - id: we will use the national number (Rijksregisternummer) as the Primary Key
- * - contract: 1-1 relation. An employee has 1 contract. Contract belongs to 1 employee
+ * Employee class properties: - id: we will use the national number
+ * (Rijksregisternummer) as the Primary Key - contract: 1-1 relation. An
+ * employee has 1 contract. Contract belongs to 1 employee
  *
  */
 public class Employee {
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private LocalDate birthDay;
+	private Long id;
+	private String firstName;
+	private String lastName;
+	private LocalDate birthDay;
 
-    private Contract contract;
+	private Contract contract;
 
-    public Long getId() {
-    	Random random = new Random();
-    	setId(1990000000000L + random.nextInt(1000000000));
-        return id;
-    }
+	public Long getId() {
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+		return id;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public LocalDate getBirthDay() {
-        return birthDay;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public void setBirthDay(LocalDate date) {
-        this.birthDay = date;
-    }
+	public LocalDate getBirthDay() {
+		return birthDay;
+	}
 
-    public Contract getContract() {
-        return contract;
-    }
+	public void setBirthDay(LocalDate date) {
+		this.birthDay = date;
+	}
 
-    public void setContract(Contract contract) {
-        this.contract = contract;
-    }
+	public Contract getContract() {
+		return contract;
+	}
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", birthDay=" + birthDay +
-                '}';
-    }
+	public void setContract(Contract contract) {
+		this.contract = contract;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\''
+				+ ", birthDay=" + birthDay + '}';
+	}
 }

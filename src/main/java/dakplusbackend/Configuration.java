@@ -3,6 +3,7 @@ package dakplusbackend;
 import dakplusbackend.service.ContractService;
 import dakplusbackend.service.EmployeeService;
 import dakplusbackend.service.WorkingDayService;
+import dakplusbackend.service.stubs.ContractProcess;
 import dakplusbackend.service.stubs.ContractServiceStub;
 import dakplusbackend.service.stubs.DataProcess;
 import dakplusbackend.service.stubs.EmployeeServiceStub;
@@ -17,7 +18,7 @@ public class Configuration {
      */
     protected static void config(ServiceBinder binder) {
         binder.bind(EmployeeService.class, DataProcess.class);
-        binder.bind(ContractService.class, ContractServiceStub.class);
+        binder.bind(ContractService.class, ContractProcess.class);
         binder.bind(WorkingDayService.class, WorkingDayServiceStub.class);
     }
 }

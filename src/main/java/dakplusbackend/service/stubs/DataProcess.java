@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 import dakplusbackend.model.Contract;
 import dakplusbackend.model.Employee;
@@ -99,33 +100,36 @@ public class DataProcess implements EmployeeService {
 
 	@Override
 	public Employee saveEmployee(Employee employee) throws SQLException {
+		System.out.println("Received emp: " + employee);
 		String sql = "";
-
-		// check if saving existing employee or making new one
+		Random random = new Random();
+		employee.setId(1990000000000L + random.nextInt(1000000000));
+		System.out.println(1990000000000L + random.nextInt(1000000000));
+		
 		if (employee.getId() == null) {
+
 			sql = String.format(
 					"UPDATE employees SET idemployees = '%d' , firstName = '%s', lastName = '%s' ,birthDay = '%s' WHERE idemployees = '%d'",
 					employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getBirthDay(),
 					employee.getId());
 		} else {
 			DateConvert convert = new DateConvert();
-			
+
 			LocalDate dateToConvert = employee.getBirthDay();
 			System.out.println(DateConvert.convertToDateViaInstant(employee.getBirthDay()));
-			sql = String.format("INSERT INTO employees (firstName,lastName,birthDay) VALUES ('%s','%s','%s')",
-					employee.getFirstName(), employee.getLastName(), employee.getBirthDay());
+			sql = String.format(
+					"INSERT INTO employees (idemployees,firstName,lastName,birthDay) VALUES ('%d','%s','%s','%s')",
+					employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getBirthDay());
 			employee = getEmployee(employee.getId());
 		}
 		
 		System.out.println(sql);
 		boolean rs = SendInsertQuery(sql);
-		System.out.println("saved employee");
-
-		employees.add(employee);
-		System.out.println(String.format("Received Employee in service. %s", employee));
+		System.out.println("saved employee" + employee);
 
 		return employee;
-	}
+}
+
 
 	@Override
 	public void deleteEmployee(Employee employee) throws SQLException {
@@ -162,8 +166,9 @@ public class DataProcess implements EmployeeService {
 		Statement statement = connection.createStatement();
 		return statement.executeQuery(sql);
 	}
+
 	public LocalDate setAsText(String text) throws IllegalArgumentException {
-        return LocalDate.parse(text, DateTimeFormatter.ISO_DATE);
-      }
+		return LocalDate.parse(text, DateTimeFormatter.ISO_DATE);
+	}
 
 }

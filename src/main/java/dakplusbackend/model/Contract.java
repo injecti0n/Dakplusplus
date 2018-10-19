@@ -12,7 +12,7 @@ public class Contract {
     private LocalDate startDate;
     private LocalDate endDate;
     private ContractType contractType;
-    private BigDecimal salary;
+	private BigDecimal salary = new BigDecimal(0);
 
     public Contract() {}
 
@@ -21,11 +21,16 @@ public class Contract {
     }
 
     public Employee getEmployee() {
+    	
         return employee;
     }
 
     public void setEmployee(Employee employee) {
+ 
+    	
+    	
         this.employee = employee;
+        
     }
 
     public LocalDate getStartDate() {
