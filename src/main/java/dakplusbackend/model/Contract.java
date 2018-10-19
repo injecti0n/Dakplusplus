@@ -17,6 +17,7 @@ public class Contract {
     public Contract() {}
 
     public Contract(Employee currentEmployee) {
+    	this.employee = currentEmployee;
 
     }
 

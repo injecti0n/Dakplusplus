@@ -90,8 +90,9 @@ public class DataProcess implements EmployeeService {
 
 	@Override
 	public Employee getEmployee(Long id) throws NoSuchElementException {
-
-		return null;
+		Employee emp = new Employee();
+		id = emp.getId();
+		return emp;
 	}
 
 	@Override
