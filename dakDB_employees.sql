@@ -1,6 +1,6 @@
 -- MySQL dump 10.16  Distrib 10.1.26-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: dakDB
+-- Host: localhost    Database: dakdb
 -- ------------------------------------------------------
 -- Server version	10.1.26-MariaDB-0+deb9u1
 

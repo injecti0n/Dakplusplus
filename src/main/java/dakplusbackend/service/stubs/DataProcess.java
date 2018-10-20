@@ -154,20 +154,20 @@ public class DataProcess implements EmployeeService {
 	}
 
 	public static ResultSet SendSQLServer(String sql) throws SQLException {
-		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakDB", "root", "ekmek");
+		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakDB", "root", "");
 		Statement statement = connection.createStatement();
 		return statement.executeQuery(sql);
 	}
 
 	public static boolean SendInsertQuery(String sql) throws SQLException {
-		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakDB", "root", "ekmek");
+		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakDB", "root", "");
 		Statement statement = connection.createStatement();
 		return statement.execute(sql);
 	}
 
 	private int SendDeleteQuery(Long id) throws SQLException {
 		String sql = "DELETE FROM employees WHERE idemployees = ?";
-		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakDB", "root", "ekmek");
+		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dakdb", "root", "");
 		Statement statement = connection.createStatement();
 		
 		PreparedStatement psmt = connection.prepareStatement(sql);
